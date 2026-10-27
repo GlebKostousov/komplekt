@@ -28,7 +28,7 @@ pydantic-core==2.50.1
     # via pydantic
 python-multipart==0.0.32
     # via komplekt
-reportlab==4.5.1
+reportlab==5.1.0
     # via komplekt
 starlette==1.10.0
     # via fastapi
