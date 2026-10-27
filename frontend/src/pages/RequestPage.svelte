@@ -26,17 +26,30 @@
   <div>
     <div class="eyebrow">Работа с документами</div>
     <h1>Заявки</h1>
-    <p>Сохраните список покупателя. Дальше подберём товары и рассчитаем предложение.</p>
+    <p>Список покупателя. Если прайс уже проверен, товары подберутся сразу.</p>
   </div>
   <button class="button ghost" onclick={() => onguide('request')}
     ><Icon name="book" size={18} />Как подготовить файл</button
   >
 </header>
 {#if success}<Notice tone="success" title={success} />{/if}
+{#if !appState.catalog}
+  <Notice tone="warning" title="Прайс ещё не загружен">
+    <p>
+      Заявку сохранить можно и сейчас. Пока нет прайса, строки не с чем сравнить: артикулы, упаковки
+      и цены появятся после него.
+    </p>
+    <div class="notice-actions">
+      <button class="button warning-button small" onclick={() => onnavigate('price')}
+        >Сначала загрузить прайс</button
+      >
+    </div>
+  </Notice>
+{/if}
 {#if !appState.requests.length}
   <div class="onboarding-layout">
     <section class="panel first-upload">
-      <div class="section-kicker"><span class="step-number">1</span>Заявка покупателя</div>
+      <div class="section-kicker"><span class="step-number">2</span>Заявка покупателя</div>
       <h2>Какие товары нужны?</h2>
       <p class="section-description">
         Загрузите файл с артикулами, названиями и количеством. Если артикула нет, его можно будет
@@ -67,15 +80,15 @@
         <li>
           <span>1</span>
           <div>
-            <b>Загрузите заявку</b>
-            <p>Что и сколько нужно покупателю</p>
+            <b>Проверьте прайс</b>
+            <p>Товары, упаковки и исходные цены</p>
           </div>
         </li>
         <li>
           <span>2</span>
           <div>
-            <b>Добавьте прайс</b>
-            <p>Товары, упаковки и исходные цены</p>
+            <b>Загрузите заявку</b>
+            <p>Что и сколько нужно покупателю</p>
           </div>
         </li>
         <li>

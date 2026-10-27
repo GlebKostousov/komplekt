@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { ImportKind, Product, State, StateHandler } from '../lib/types';
+  import type { ImportKind, Navigate, Product, State, StateHandler } from '../lib/types';
   import { count, date, money } from '../lib/format';
   import Icon from '../components/Icon.svelte';
   import UploadPanel from '../components/UploadPanel.svelte';
@@ -9,11 +9,13 @@
     onstate,
     onguide,
     onpriceedit,
+    onnavigate,
   }: {
     appState: State;
     onstate: StateHandler;
     onguide: (kind: ImportKind) => void;
     onpriceedit: (product: Product) => void;
+    onnavigate: Navigate;
   } = $props();
   let search = $state('');
   let missingOnly = $state(false);
@@ -34,7 +36,7 @@
   <div>
     <div class="eyebrow">Товары и цены</div>
     <h1>Прайс</h1>
-    <p>Актуальные цены для расчёта. Правки здесь применяются ко всем заявкам.</p>
+    <p>Сначала проверьте прайс. Потом загрузите заявку: цены и упаковки возьмутся отсюда.</p>
   </div>
   <button class="button ghost" onclick={() => onguide('price')}
     ><Icon name="book" size={18} />Как подготовить файл</button
@@ -43,7 +45,7 @@
 {#if !appState.catalog}
   <div class="onboarding-layout">
     <section class="panel first-upload">
-      <div class="section-kicker"><span class="step-number">2</span>Прайс поставщика</div>
+      <div class="section-kicker"><span class="step-number">1</span>Прайс поставщика</div>
       <h2>Добавьте товары и цены</h2>
       <p class="section-description">
         Цена указывается за единицу продажи: штуку или упаковку. Неизвестную цену оставьте пустой —
@@ -88,11 +90,17 @@
       <div class="notice-actions">
         <button class="button warning-button small" onclick={() => onpriceedit(missing[0])}
           >Уточнить цену</button
-        ><button class="text-button" onclick={() => (missingOnly = true)}>Показать без цены</button>
+        ><button class="text-button" onclick={() => (missingOnly = true)}>Показать без цены</button
+        ><button class="text-button" onclick={() => onnavigate('requests')}>Дальше: заявка</button>
       </div></Notice
     >
   {:else if imported}<Notice tone="success" title="Прайс сохранён"
-      ><p>Все товары имеют цену. Можно перейти к подготовке КП.</p></Notice
+      ><p>Все товары имеют цену. Следующий шаг — заявка покупателя.</p>
+      <div class="notice-actions">
+        <button class="button primary small" onclick={() => onnavigate('requests')}
+          >Перейти к заявке</button
+        >
+      </div></Notice
     >{/if}
   <details class="panel import-disclosure">
     <summary

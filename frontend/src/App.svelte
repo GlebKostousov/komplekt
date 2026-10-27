@@ -12,7 +12,7 @@
   import PricePage from './pages/PricePage.svelte';
   import QuotePage from './pages/QuotePage.svelte';
   import HistoryPage from './pages/HistoryPage.svelte';
-  let page = $state<Page>('requests');
+  let page = $state<Page>('price');
   let requestId = $state('');
   let loading = $state(true);
   let problem = $state<ApiProblem | null>(null);
@@ -23,8 +23,8 @@
   let toast = $state('');
   let toastTimer: ReturnType<typeof setTimeout>;
   const pages: { id: Page; title: string; icon: string }[] = [
-    { id: 'requests', title: 'Заявки', icon: 'requests' },
     { id: 'price', title: 'Прайс', icon: 'price' },
+    { id: 'requests', title: 'Заявки', icon: 'requests' },
     { id: 'quote', title: 'Подготовка КП', icon: 'quote' },
     { id: 'history', title: 'История КП', icon: 'history' },
   ];
@@ -81,7 +81,7 @@
 <a href="#main" class="skip-link">Перейти к содержимому</a>
 <div class="app-shell">
   <aside class:mobile-open={mobileMenu} class="sidebar">
-    <a href="#requests" class="wordmark" onclick={() => navigate('requests')}
+    <a href="#price" class="wordmark" onclick={() => navigate('price')}
       ><span class="brand-mark"><span></span><span></span></span><span
         >комплект<span class="brand-descriptor">Коммерческие предложения</span></span
       ></a
@@ -135,7 +135,7 @@
       {#if loading}<div class="app-loading">
           <span class="spinner"></span>
           <h2>Открываем сохранённые данные</h2>
-          <p>Загружаем сохранённые заявки и прайс.</p>
+          <p>Загружаем сохранённый прайс и заявки.</p>
         </div>{:else if problem}<section class="panel load-error">
           <Problem {problem} /><button class="button primary" onclick={load}
             ><Icon name="refresh" size={18} />Попробовать ещё раз</button
@@ -150,6 +150,7 @@
             onstate={acceptState}
             onguide={(kind) => (guide = kind)}
             onpriceedit={(product) => (priceProduct = product)}
+            onnavigate={navigate}
           />{:else if page === 'quote'}<QuotePage
             appState={workspace.state}
             {requestId}
