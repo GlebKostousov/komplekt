@@ -8,7 +8,7 @@ trim_trailing_whitespace = true
 indent_style = space
 indent_size = 4
 
-[*.{svelte,ts,js,css,yml,yaml,json,md}]
+[*.{svelte,ts,js,css,html,yml,yaml,json,md}]
 indent_size = 2
 
 [*.cmd]
