@@ -28,11 +28,11 @@ pydantic-core==2.50.1
     # via pydantic
 python-multipart==0.0.32
     # via komplekt
-reportlab==4.5.1
+reportlab==5.1.0
     # via komplekt
 starlette==1.10.0
     # via fastapi
-structlog==25.5.0
+structlog==26.1.0
     # via komplekt
 typing-extensions==4.16.0
     # via
