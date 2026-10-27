@@ -1,0 +1,8 @@
+{
+  "name": "komplekt-local-preview",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/preview.mjs"
+  }
+}
