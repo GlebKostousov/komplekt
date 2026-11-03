@@ -24,7 +24,7 @@ pydantic==2.14.1
     # via
     #   fastapi
     #   komplekt
-pydantic-core==2.50.1
+pydantic-core==2.50.2
     # via pydantic
 python-multipart==0.0.32
     # via komplekt
